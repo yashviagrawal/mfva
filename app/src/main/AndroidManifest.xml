@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.appknox.mfva">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Define custom permission at the manifest level, not inside the application -->
+    <permission
+        android:description="@string/permission_custom"
+        android:label="@string/permission_custom"
+        android:name="com.appknox.mfva.CustomPermission" />
 
     <application
         android:allowBackup="true"
@@ -14,21 +19,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
         <activity
             android:name=".MainActivity"
             android:label="@string/activity_title_main"
+            android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".WebViewActivity"
             android:label="@string/activity_title_webview"
             android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait" />
+
         <activity
             android:name=".ApiRequestsActivity"
             android:label="@string/activity_title_api_requests"
@@ -38,6 +46,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity
             android:name=".ExportedActivity"
             android:exported="true"
@@ -46,7 +55,8 @@
         <service
             android:name=".ExportedService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
         <service
             android:name=".UnprotectedService"
             android:enabled="true"
@@ -61,6 +71,7 @@
                 <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
             </intent-filter>
         </receiver>
+
         <receiver
             android:name=".UnprotectedReceiver"
             android:exported="true"
@@ -70,11 +81,6 @@
                 <action android:name="android.intent.action.INPUT_METHOD_CHANGED" />
             </intent-filter>
         </receiver>
-
-        <permission
-            android:description="@string/permission_custom"
-            android:label="@string/permission_custom"
-            android:name="com.appknox.mfva.CustomPermission" />
 
         <provider
             android:name="com.appknox.mfva.StubProvider"
@@ -87,4 +93,5 @@
                 android:pathPrefix="/" />
         </provider>
     </application>
+
 </manifest>
